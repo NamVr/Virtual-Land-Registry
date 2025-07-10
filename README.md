@@ -6,6 +6,12 @@ A decentralized land registry and marketplace built on the Internet Computer Pro
 ![Rust](https://img.shields.io/badge/Backend-Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
 ![React](https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 
+## 🖼️ Screenshots
+
+| Landing Page                                | My Lands                                 | Marketplace                                   | Mint Land                                   |
+| ------------------------------------------- | ---------------------------------------- | --------------------------------------------- | ------------------------------------------- |
+| ![Landing Page](./screenshots/landpage.png) | ![My Lands](./screenshots/My%20land.png) | ![Marketplace](./screenshots/Marketplace.png) | ![Mint Land](./screenshots/Mint%20land.png) |
+
 ## ✨ Features
 
 ### 🎯 Core Functionality
