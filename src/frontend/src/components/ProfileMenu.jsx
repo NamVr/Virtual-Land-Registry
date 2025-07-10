@@ -14,7 +14,7 @@ function ProfileMenu({ principal, onLogout }) {
         className="profile-avatar"
         title={`Principal ID: ${principal}`}
       >
-        👤
+        464
       </div>
 
       {open && (

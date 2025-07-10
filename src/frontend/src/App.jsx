@@ -7,6 +7,11 @@ import MyLands from "./components/MyLands";
 import Marketplace from "./components/Marketplace";
 import { getIdentityProvider } from "./identity";
 import { createActor } from "./actor";
+import { AnimatePresence, motion } from "framer-motion";
+import Landing from "./components/Landing";
+import HowItWorks from "./components/sections/HowItWorks";
+import Footer from "./components/sections/Footer";
+import Cursor from "./components/ui/Cursor";
 
 function App() {
   const [authClient, setAuthClient] = useState(null);
@@ -57,53 +62,63 @@ function App() {
 
   return (
     <>
-      <Navbar
-        currentView={view}
-        onNavigate={setView}
-        isAuthenticated={isAuthenticated}
-        principal={principal}
-        onLogin={login}
-        onLogout={logout}
-      />
-
-      <main className="content-wrapper">
-        {!isAuthenticated ? (
-          <p className="message-text">
-            You are not logged in. Please log in to explore the Virtual Land
-            Registry.
-          </p>
-        ) : (
-          <>
-            {view === "mint" && (
-              <MintLandForm principal={principal} backend={backendActor} />
-            )}
-            {view === "my" && (
-              <MyLands principal={principal} backend={backendActor} />
-            )}
-            {view === "market" && (
-              <Marketplace principal={principal} backend={backendActor} />
-            )}
-          </>
-        )}
-      </main>
-
-      <footer className="app-footer">
-        <p>
-          &copy; {new Date().getFullYear()} Virtual Land Registry. All rights
-          reserved.
-        </p>
-        <p>
-          Built with ❤️ on the{" "}
-          <a
-            href="https://dfinity.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Internet Computer
-          </a>
-          .
-        </p>
-      </footer>
+      {isAuthenticated && <Cursor />}
+      {isAuthenticated ? (
+        <>
+          <Navbar
+            currentView={view}
+            onNavigate={setView}
+            isAuthenticated={isAuthenticated}
+            principal={principal}
+            onLogin={login}
+            onLogout={logout}
+          />
+          <main className="content-wrapper">
+            <AnimatePresence mode="wait" initial={false}>
+              {view === "mint" && (
+                <motion.div
+                  key="mint"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -40 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  style={{ width: "100%" }}
+                >
+                  <MintLandForm principal={principal} backend={backendActor} />
+                </motion.div>
+              )}
+              {view === "my" && (
+                <motion.div
+                  key="my"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -40 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  style={{ width: "100%" }}
+                >
+                  <MyLands principal={principal} backend={backendActor} />
+                </motion.div>
+              )}
+              {view === "market" && (
+                <motion.div
+                  key="market"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -40 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  style={{ width: "100%" }}
+                >
+                  <Marketplace principal={principal} backend={backendActor} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <HowItWorks />
+          </main>
+          <Footer />
+        </>
+      ) : (
+        <Landing onGetStarted={login} />
+      )}
     </>
   );
 }
